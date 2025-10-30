@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>PyWebview Demo</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <h1>Python + HTML GUI</h1>
+    <input id="name" placeholder="Enter your name">
+    <button class="big" onclick="openFileDialog()">Get File Paths</button>
+    <button class="big" onclick="openDirDialog()">Get Directory Path</button>
+    <p id="result"></p>
+
+    <script>
+    async function openFileDialog() {
+      // call Python method exposed as js_api
+      await pywebview.api.open_file_dialog();
+    }
+
+    async function openDirDialog() {
+      await pywebview.api.open_directory_dialog();
+    }
+
+    //this is for onj with keys as digits from pywebview dialog return
+    function makeObjIntoArray(obj) {
+      let arr = [];
+      Object.keys(file_obj).forEach((key) => { message.push(file_obj[key]) });
+      return arr;
+    }
+    </script>
+  </body>
+</html>
