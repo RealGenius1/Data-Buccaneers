@@ -25,6 +25,11 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        #variables to be set throughout app when buttons used
+        self.save_path = ""
+        self.files_to_aggregate = tuple()
+
+        #create UI
         self.title("Scan PBR into Documents (UI IN DEV)")
         self.geometry("600x400")
         self.focus_force()
@@ -50,6 +55,7 @@ class App(ctk.CTk):
             initialdir=None
         )
         print(filepaths) #REMOVE
+        if (filepaths != None): self.files_to_aggregate = filepaths
         self.focus_force()
 
     def destination_files_func(self):
@@ -61,6 +67,7 @@ class App(ctk.CTk):
             title="Destination to save files to"
         )
         print(save_path) #REMOVE
+        if (save_path != None): self.save_path = save_path
         self.focus_force()
 
     def run_program_func(self):
