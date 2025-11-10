@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>PyWebview Demo</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="top-bar">
+
+    </div>
+    <div class="center">
+      <div class="column">
+        <div class="temp-art"></div>
+        <button class="action-button" onclick="openFileDialog()">Choose PRB Files</button>
+        <button class="action-button" onclick="openDirDialog(true)">Choose PRB Files Directory</button>
+      </div>
+      <div class="column">
+        <div class="temp-art"></div>
+        <button class="action-button" onclick="openDirDialog()">Target Directory</button>
+        <button class="action-button fake">Not Clickable</button>
+      </div>
+      <div class="column">
+        <div class="temp-art"></div>
+        <button class="action-button" onclick="generateExcel()">Generate Excel</button>
+        <button class="action-button fake">Not Clickable</button>
+      </div>
+    </div>
+
+    <script>
+    async function openFileDialog() {
+      // call Python method exposed as js_api
+      await pywebview.api.open_file_dialog();
+    }
+
+    async function openDirDialog(get_files_from_dir=false) {
+      await pywebview.api.open_directory_dialog(get_files_from_dir);
+    }
+
+    async function generateExcel() {
+      const result = await pywebview.api.generate_excel_file();
+      await pywebview.api.print(typeof result);
+      if (result) {
+        await pywebview.api.print("true");
+      } else {
+        await pywebview.api.print("false");
+      }
+    }
+
+    //this is for object with keys as digits from pywebview dialog return
+    function makeObjIntoArray(obj) {
+      let arr = [];
+      Object.keys(file_obj).forEach((key) => { message.push(file_obj[key]) });
+      return arr;
+    }
+    </script>
+  </body>
+</html>
