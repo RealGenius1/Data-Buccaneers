@@ -36,8 +36,7 @@ Now, set up the Python environment and install the necessary libraries for the b
   ```bash
   pip install -r requirements.txt
   ```
-(Note: this must be done in the root project directory, going backwards is:
+Note: this must be done in the root project directory, going backwards is:
 ```bash
 cd ..\..
 ```
-)
