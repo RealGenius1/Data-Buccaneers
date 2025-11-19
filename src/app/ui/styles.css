@@ -11,6 +11,7 @@
   height: 100%;
 
   background-color: var(--bg-primary);
+  overflow: hidden;
 }
 html, body {
   width: 100%;
@@ -62,7 +63,7 @@ html, body {
   background-color: red;
 }
 
-/*Format taken from this button example site: https://getcssscan.com/css-buttons-examples*/
+/*Button format taken from this css site: https://getcssscan.com/css-buttons-examples*/
 .action-button {
   height: 48px;
   width: 200px;
@@ -103,6 +104,18 @@ html, body {
     var(--button-shadow-dark) 0 2px 4px,
     var(--button-shadow-dark) 0 7px 13px -3px,
     var(--button-shadow-light) 0 -3px 0 inset;
+}
+
+.display-text-area {
+  width: 200px;
+  height: 120px;
+  border: solid red 5px;
+  position: absolute;
+  top: calc(100% + 30px);
+  overflow-y: scroll;
+}
+.display-text-area p {
+  white-space: nowrap;
 }
 
 .temp-art {

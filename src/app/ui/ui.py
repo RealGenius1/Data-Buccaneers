@@ -28,7 +28,7 @@ class API:
     def get_dir_path(self):
         return self.dir_path
 
-    @run_in_new_thread
+    #@run_in_new_thread
     def open_file_dialog(self):
         #can't have two windows at once from same thread, so thread webview dialogs
         filepaths = webview.windows[0].create_file_dialog(
@@ -38,8 +38,9 @@ class API:
         )
         print(filepaths) #REMOVE
         if (filepaths != None): self.files = filepaths
+        return self.files
 
-    @run_in_new_thread
+    #@run_in_new_thread
     def open_directory_dialog(self, get_files_from_dir=False):
         dir_path = webview.windows[0].create_file_dialog(
             webview.FileDialog.FOLDER,
