@@ -6,6 +6,7 @@
   --button-color-hover: #792306;
   --button-text: #efefef;
   --button-shadow-dark: rgba(45, 35, 66, 0.4);
+  --connecting-bar-starting-color: #efefef;
 
 
   width: 100%;
@@ -52,10 +53,10 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /*border: solid blue 2px;*/
   align-items: center;
   justify-content: center;
 }
+
 .column:nth-child(-n+2)::after {
   content:'';
   position: absolute;
@@ -63,7 +64,12 @@ html, body {
   left: 80%;
   width: 60%;
   height: 2px;
-  background-color: red;
+  background-color: var(--connecting-bar-starting-color);
+  transition: background-color 0.3s ease;
+}
+
+.column.completed::after {
+  background-color: var(--bg-secondary);
 }
 
 /* 
@@ -146,7 +152,7 @@ html, body {
   background-color: white;
 }
 .fake {
-  color: red;
+  color: rgb(0, 17, 255);
   visibility: hidden;
 }
 

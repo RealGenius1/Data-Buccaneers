@@ -28,8 +28,8 @@ class API:
     def get_dir_path(self):
         return self.dir_path
 
-    @run_in_new_thread
-    def open_file_dialog(self):
+    
+    def open_file_dialog(self) -> bool:
         #can't have two windows at once from same thread, so thread webview dialogs
         filepaths = webview.windows[0].create_file_dialog(
             webview.FileDialog.OPEN,
@@ -37,17 +37,26 @@ class API:
             file_types=("PDF File (*.pdf)", "Word Doc (*.docx)")
         )
         print(filepaths) #REMOVE
-        if (filepaths != None): self.files = filepaths
+        if (filepaths != None):
+            self.files = filepaths
+            return True
+        return False
 
-    @run_in_new_thread
-    def open_directory_dialog(self, get_files_from_dir=False):
+    
+    def open_directory_dialog(self, get_files_from_dir=False) -> bool:
         dir_path = webview.windows[0].create_file_dialog(
             webview.FileDialog.FOLDER,
         )
         print("directory choosen:", dir_path) #REMOVE
         if (dir_path != None and not get_files_from_dir): self.dir_path = dir_path[0]
-        if (dir_path != None and get_files_from_dir): self.files = self.get_prb_files_from_dir(dir_path[0])
-        print("Current PRB files (self.files):", self.files) #REMOVE
+        if (dir_path != None and get_files_from_dir):
+            self.files = self.get_prb_files_from_dir(dir_path[0])
+            print("Current PRB files (self.files):", self.files)
+        
+        if(self.files != None):
+            return True
+        return False
+            
 
     def get_prb_files_from_dir(self, dir_path: str):
         dir = pathlib.Path(dir_path)
