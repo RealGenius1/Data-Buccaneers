@@ -2,7 +2,7 @@ import pathlib
 import threading
 from types import FunctionType
 import webview
-
+from main import generate
 
 def run_in_new_thread(passed_function: FunctionType) -> FunctionType:
     """Run's passed function in a new thread
@@ -50,8 +50,10 @@ class API:
         print("directory choosen:", dir_path) #REMOVE
         if (dir_path != None and not get_files_from_dir): self.dir_path = dir_path[0]
         if (dir_path != None and get_files_from_dir):
-            self.files = self.get_prb_files_from_dir(dir_path[0])
-            print("Current PRB files (self.files):", self.files)
+            # self.files = self.get_prb_files_from_dir(dir_path[0])
+            # print("Current PRB files (self.files):", self.files)
+            self.files = dir_path[0]
+            print("Current PRB path: " + self.files)
         
         if(self.files != None):
             return True
@@ -64,6 +66,14 @@ class API:
         return all_pdf_files
 
     def generate_excel_file(self):
+        print("generate")
+
+        # print(self.dir_path)
+
+        generate(self.files, self.dir_path)
+
+        print("done")
+
         #TODO implement call with files tuple and dir_path
         if (len(self.files) <= 0 and len(self.dir_path) <= 0):
             return False
