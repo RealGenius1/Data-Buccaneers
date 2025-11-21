@@ -12,30 +12,49 @@
     <div class="center"> <!-- Contains the svg's, buttons, and output boxes, so the main section -->
 
       <div class="column"> <!-- Each column is a vertical section in the resulting UI -->
-        <div class="temp-art"></div>
-        <button class="action-button" onclick="openFileDialog()">Choose PRB Files</button>
-        <button class="action-button" onclick="openDirDialog(true)">Choose PRB Files Directory</button>
+        <div class="temp-art" id="c1-art"></div>
+        <button class="action-button" onclick="openFileDialog()" id="c1-button-1">Choose PRB Files</button>
+        <button class="action-button" onclick="openDirDialog(true)" id="c1-button-2">Choose PRB Files Directory</button>
         <p class="display-title" id="text-input-title"></p>
         <div class="display-text-area" id="text-input-rows"></div>
       </div>
 
       <div class="column">
-        <div class="temp-art"></div>
-        <button class="action-button" onclick="openDirDialog()">Target Directory</button>
+        <div class="temp-art" id="c2-art"></div>
+        <button class="action-button" onclick="openDirDialog()" id="c2-button-1">Target Directory</button>
         <button class="action-button fake">Not Clickable</button>
         <p class="display-title" id="text-destination-title"></p>
         <div class="display-text-area" id="text-destination-rows"></div>
       </div>
 
       <div class="column">
-        <div class="temp-art"></div>
-        <button class="action-button" onclick="generateExcel()">Generate Excel</button>
+        <div class="temp-art" id="c3-art"></div>
+        <button class="action-button" onclick="generateExcel()" id="c3-button-1">Generate Excel</button>
         <button class="action-button fake">Not Clickable</button>
       </div>
 
     </div>
 
     <script>
+    //Here, we have arrays of each columns elements we need to interact with for
+    //animation purposes. This lets us just loop through them when we need to
+    //set column-wide changes (color, display, appearance...)
+    const c1 = [
+      document.getelementbyid("c1-art"),
+      document.getelementbyid("c1-button-1"),
+      document.getelementbyid("c1-button-2"),
+      document.getelementbyid("text-input-title")
+    ];
+    const c2 = [
+      document.getelementbyid("c2-art"),
+      document.getelementbyid("c2-button-1"),
+      document.getelementbyid("text-destination-title")
+    ];
+    const c3 = [
+      document.getElementById("c3-art"),
+      document.getElementById("c3-button-1"),
+    ];
+
     async function openFileDialog() {
       // call Python method exposed as js_api
       const result = await pywebview.api.open_file_dialog();
@@ -46,6 +65,9 @@
         for (let res of result) {
           addRowText("text-input-rows", res);
         }
+
+        //after first column success, color next section to show order to user
+        applyColoredClass(c2);
       } else {
         await pywebview.api.print("No files choosen");
       }
@@ -57,12 +79,18 @@
         document.getElementById("text-destination-title").innerHTML = "Destination Directory:";
         clearText("text-destination-rows");
         addRowText("text-destination-rows", dir_path);
+
+        //after second column success, color next section to show order to user
+        applyColoredClass(c3);
       } else if (dir_path[0] && get_files_from_dir) {
         document.getElementById("text-input-title").innerHTML = "Choosen PRB Files:";
         clearText("text-input-rows");
         for (let res of dir_path) {
           addRowText("text-input-rows", res);
         }
+
+        //after first column success, color next section to show order to user
+        applyColoredClass(c2);
       } else {
         await pywebview.api.print(typeof dir_path);
       }
@@ -99,6 +127,15 @@
     function clearText(sec_id) {
       const sec = document.getElementById(sec_id);
       sec.innerHTML = "";
+    }
+
+    //iterate through array, apply colored class to each html element
+    function applyColoredClass(col_arr) {
+      for (let e of col_arr) {
+        //pywebview.api.print("applied color");
+        //e.classList.add("colored"); //REMOVE colored class from css if this doesn't work
+        e.style.backgroundColor = "#f8d8a8"; //TODO: get var() colors in here
+      }
     }
 
     //this is for object with keys as digits from pywebview dialog return
