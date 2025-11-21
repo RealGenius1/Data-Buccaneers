@@ -46,8 +46,12 @@ class API:
             webview.FileDialog.FOLDER,
         )
         print("directory choosen:", dir_path) #REMOVE
-        if (dir_path != None and not get_files_from_dir): self.dir_path = dir_path[0]
-        if (dir_path != None and get_files_from_dir): self.files = self.get_prb_files_from_dir(dir_path[0])
+        if (dir_path != None and not get_files_from_dir):
+            self.dir_path = dir_path[0]
+            return self.dir_path
+        if (dir_path != None and get_files_from_dir): 
+            self.files = self.get_prb_files_from_dir(dir_path[0])
+            return self.files
         print("Current PRB files (self.files):", self.files) #REMOVE
 
     def get_prb_files_from_dir(self, dir_path: str):
