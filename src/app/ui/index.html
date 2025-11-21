@@ -11,23 +11,24 @@
     </div>
     <div class="center">
       <div class="column">
-        <div class="temp-art"></div>
+        <div class="temp-art" style="--icon: url('./OpenDirectoryIcon.svg');"></div>
         <button class="action-button" onclick="openFileDialog()">Choose PRB Files</button>
         <button class="action-button" onclick="openDirDialog(true)">Choose PRB Files Directory</button>
       </div>
       <div class="column">
-        <div class="temp-art"></div>
+        <div class="temp-art" style="--icon: url('./TargetDirectoryIcon.svg');"></div>
         <button class="action-button" onclick="openDirDialog()">Target Directory</button>
         <button class="action-button fake">Not Clickable</button>
       </div>
       <div class="column">
-        <div class="temp-art"></div>
+        <div class="temp-art" style="--icon: url('./XLSXFileIcon.svg');"></div>
         <button class="action-button" onclick="generateExcel()">Generate Excel</button>
         <button class="action-button fake">Not Clickable</button>
       </div>
     </div>
 
     <script>
+    let childOneIsOrange = false;
     async function openFileDialog() {
       // call Python method exposed as js_api 
       // returns true if a pdf is correctly chosen
@@ -40,7 +41,12 @@
     async function openDirDialog(get_files_from_dir=false) {
       if(await pywebview.api.open_directory_dialog(get_files_from_dir))
       {
-        document.querySelector('.column:nth-child(2)').classList.add('completed');
+        if(childOneIsOrange)
+        {
+          document.querySelector('.column:nth-child(2)').classList.add('completed');
+        }
+        document.querySelector('.column:nth-child(1)').classList.add('completed');
+        childOneIsOrange = true;
       }
     }
 
@@ -51,6 +57,7 @@
         await pywebview.api.print("true");
         document.querySelector('.column:nth-child(1)').classList.add('completed');
         document.querySelector('.column:nth-child(2)').classList.add('completed');
+        document.querySelector('.column:nth-child(3)').classList.add('completed');
       } else {
         await pywebview.api.print("false");
       }

@@ -60,7 +60,7 @@ html, body {
 .column:nth-child(-n+2)::after {
   content:'';
   position: absolute;
-  top: 10%;
+  top: 20%;
   left: 80%;
   width: 60%;
   height: 2px;
@@ -147,10 +147,31 @@ html, body {
 }
 
 .temp-art {
-  width: 50px;
-  height: 50px;
-  background-color: white;
+  width: 80px;
+  height: 80px;
+
+  background-color: var(--connecting-bar-starting-color);
+  
+  -webkit-mask-image: var(--icon);
+  mask-image: var(--icon);
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  transition: background-color 0.3s ease;
 }
+
+.column.completed .temp-art {
+  background-color: var(--bg-secondary);
+}
+
+
 .fake {
   color: rgb(0, 17, 255);
   visibility: hidden;
