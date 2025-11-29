@@ -7,7 +7,8 @@
   --button-shadow-light: #f8b878;
   --button-shadow-dark: rgba(45, 35, 66, 0.4);
 
-  --no-interact-color: lightgrey;
+  --no-interact-bg: lightgrey;
+  --no-interact-shadow: darkgrey;
 
   width: 100%;
   height: 100%;
@@ -45,15 +46,20 @@ html, body {
 }
 
 .column {
+  --line-color: lightgrey;
+
   height: fit-content;
 
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /*border: solid blue 2px;*/
   align-items: center;
   justify-content: center;
+}
+.column::after {
+  background-color: var(--line-color);
+  transition: background-color 1s ease;
 }
 .column:nth-child(-n+2)::after {
   content:'';
@@ -62,32 +68,30 @@ html, body {
   left: 80%;
   width: 60%;
   height: 2px;
-  background-color: red;
 }
 
-/*Button format taken from this css site: https://getcssscan.com/css-buttons-examples*/
+/*Button structure taken from this css site: https://getcssscan.com/css-buttons-examples, specifically button 30*/
 .action-button {
   height: 48px;
   width: 200px;
   align-items: center;
   appearance: none;
-  background-color: var(--button-color);
+  background-color: var(--no-interact-bg);
   border-radius: 6px;
   border-width: 0;
-  box-shadow:
-    var(--button-shadow-dark) 0 2px 4px,
-    var(--button-shadow-dark) 0 7px 13px -3px,
-    var(--button-shadow-light) 0 -3px 0 inset;
   box-sizing: border-box;
   color: var(--button-text);
-  cursor: pointer;
+  cursor: not-allowed;
   display: inline-flex;
-  /*font-family: "JetBrains Mono", monospace;*/
   font-size: 14px;
   justify-content: center;
   padding: 0 16px;
   transition: box-shadow .15s, transform .15s;
   user-select: none;
+  pointer-events: none; /*this is fixed from colored class when applied by applyColoredClass function*/
+  transition: 
+    background-color 1s ease,
+    box-shadow 1s ease;
 }
 .action-button:hover {
   box-shadow:
@@ -108,7 +112,7 @@ html, body {
     var(--button-shadow-light) 0 -3px 0 inset;
 }
 
-.column .display-title {
+.display-title {
   width: 195px;
   height: 25px;
   position: absolute;
@@ -118,11 +122,11 @@ html, body {
   display: inline-flex;
   align-items: center;
 
-  /*background-color: var(--button-color);*/
-  background-color: var(--button-color);
+  background-color: var(--no-interact-bg);
   border-radius: 6px;
   border-width: 0;
   color: var(--button-text);
+  transition: background-color 1s ease;
 }
 .display-text-area {
   width: 200px;
@@ -132,13 +136,15 @@ html, body {
   border-width: 0;
   box-sizing: border-box;
   color: var(--button-text);
-  box-shadow: var(--button-shadow-light) 0 3px 7px inset;
+  box-shadow: var(--no-interact-shadow) 0 3px 7px inset;
   transform: translateY(2px);
 
   position: absolute;
   top: calc(100% + 60px);
   overflow-y: scroll;
   overflow-x: hidden;
+
+  transition: box-shadow 1s ease;
 }
 .display-text-area p {
   white-space: nowrap;
@@ -146,26 +152,24 @@ html, body {
   padding-left: 4px;
   padding-top: 4px;
   margin: 0;
-  /*transition: font-weight ease 0.1s;*/
 
   &:nth-child(2n) {
     background-color: var(--bg-primary);
     filter: brightness(90%);
   }
-  &:hover {
-    font-weight: bold;
-  }
+  &:hover {font-weight: bold;}
 }
 
 .colored {
-  border: solid red 2px;
-  background-color: green;
+  background-color: var(--button-color);
+  pointer-events: auto;
 }
-.temp-art {
+.temp-art { /*TODO: Transition to svg art instead of a box div*/
   width: 50px;
   height: 50px;
   background-color: grey;
   margin-bottom: 20px;
+  transition: background-color 1s ease;
 }
 .fake {
   color: red;

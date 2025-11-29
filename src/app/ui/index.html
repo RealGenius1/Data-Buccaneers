@@ -11,7 +11,7 @@
     </div>
     <div class="center"> <!-- Contains the svg's, buttons, and output boxes, so the main section -->
 
-      <div class="column"> <!-- Each column is a vertical section in the resulting UI -->
+      <div class="column" id="dir-col-line"> <!-- Each column is a vertical section in the resulting UI -->
         <div class="temp-art" id="c1-art"></div>
         <button class="action-button" onclick="openFileDialog()" id="c1-button-1">Choose PRB Files</button>
         <button class="action-button" onclick="openDirDialog(true)" id="c1-button-2">Choose PRB Files Directory</button>
@@ -19,7 +19,7 @@
         <div class="display-text-area" id="text-input-rows"></div>
       </div>
 
-      <div class="column">
+      <div class="column" id="run-col-line">
         <div class="temp-art" id="c2-art"></div>
         <button class="action-button" onclick="openDirDialog()" id="c2-button-1">Target Directory</button>
         <button class="action-button fake">Not Clickable</button>
@@ -40,20 +40,28 @@
     //animation purposes. This lets us just loop through them when we need to
     //set column-wide changes (color, display, appearance...)
     const c1 = [
-      document.getelementbyid("c1-art"),
-      document.getelementbyid("c1-button-1"),
-      document.getelementbyid("c1-button-2"),
-      document.getelementbyid("text-input-title")
+      document.getElementById("c1-art"),
+      document.getElementById("c1-button-1"),
+      document.getElementById("c1-button-2"),
+      document.getElementById("text-input-title"),
+      document.getElementById("text-input-rows")
     ];
     const c2 = [
-      document.getelementbyid("c2-art"),
-      document.getelementbyid("c2-button-1"),
-      document.getelementbyid("text-destination-title")
+      document.getElementById("c2-art"),
+      document.getElementById("c2-button-1"),
+      document.getElementById("text-destination-title"),
+      document.getElementById("text-destination-rows"),
+      document.getElementById("dir-col-line")
     ];
     const c3 = [
       document.getElementById("c3-art"),
       document.getElementById("c3-button-1"),
+      document.getElementById("run-col-line")
     ];
+
+    //activate the first column to allow usage (everything's grey/disabled to
+    //start, then we call this function to make colored and interactable)
+    applyColoredClass(c1);
 
     async function openFileDialog() {
       // call Python method exposed as js_api
@@ -132,10 +140,36 @@
     //iterate through array, apply colored class to each html element
     function applyColoredClass(col_arr) {
       for (let e of col_arr) {
-        //pywebview.api.print("applied color");
-        //e.classList.add("colored"); //REMOVE colored class from css if this doesn't work
-        e.style.backgroundColor = "#f8d8a8"; //TODO: get var() colors in here
+        if (!e) {continue;}
+
+        e.style.pointerEvents = "auto";
+        switch (e.tagName) {
+          case "BUTTON":
+            e.style.backgroundColor = "var(--button-color)";
+            e.style.boxShadow = "var(--button-shadow-dark) 0 2px 4px, var(--button-shadow-dark) 0 7px 13px -3px, var(--button-shadow-light) 0 -3px 0 inset";
+            e.style.cursor = "pointer";
+            break;
+          case "DIV": //TODO: svg fill change, leave div as the text input
+            if (!classListContains(e, ["display-title", "temp-art", "column"])) { //replace this if with just the div change later
+              e.style.boxShadow = "var(--button-shadow-light) 0 3px 7px inset";
+            } else if (e.classList.contains("column")) {
+              e.style.setProperty("--line-color", "#222222");
+            } else { //TODO: replace this with a switch for an svg later
+              e.style.backgroundColor = "#000000";
+            }
+            break;
+          case "P":
+            e.style.backgroundColor = "var(--button-color)";
+            break;
+        }
       }
+    }
+
+    function classListContains(e, class_list) {
+      for (const c of class_list) {
+        if (e.classList.contains(c)) {return true;}
+      }
+      return false;
     }
 
     //this is for object with keys as digits from pywebview dialog return
