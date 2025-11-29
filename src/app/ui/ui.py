@@ -1,18 +1,6 @@
 import pathlib
-import threading
-from types import FunctionType
 import webview
-
-
-def run_in_new_thread(passed_function: FunctionType) -> FunctionType:
-    """Run's passed function in a new thread
-
-    I wanted to try out Python decorators, they seem cool and made the API
-    classes functions cleaner.
-    """
-    def wrapper(*args, **kwargs):
-        threading.Thread(target=passed_function, args=args, kwargs=kwargs).start()
-    return wrapper
+from main import generate
 
 class API:
     """This is the communication bridge between js and python, it groups the functions
@@ -28,9 +16,8 @@ class API:
     def get_dir_path(self):
         return self.dir_path
 
-    #@run_in_new_thread
+    #TALK: Why do these need to return booleans? (Next 2 functions)
     def open_file_dialog(self):
-        #can't have two windows at once from same thread, so thread webview dialogs
         filepaths = webview.windows[0].create_file_dialog(
             webview.FileDialog.OPEN,
             allow_multiple=True,
@@ -40,7 +27,6 @@ class API:
         if (filepaths != None): self.files = filepaths
         return self.files
 
-    #@run_in_new_thread
     def open_directory_dialog(self, get_files_from_dir=False):
         dir_path = webview.windows[0].create_file_dialog(
             webview.FileDialog.FOLDER,
@@ -60,6 +46,14 @@ class API:
         return all_pdf_files
 
     def generate_excel_file(self):
+        print("generate")
+
+        # print(self.dir_path)
+
+        #generate(self.files, self.dir_path) #TODO: Cleanup this generation function with path objects
+
+        print("done")
+
         #TODO implement call with files tuple and dir_path
         if (len(self.files) <= 0 and len(self.dir_path) <= 0):
             return False

@@ -7,12 +7,12 @@
   </head>
   <body>
     <div class="top-bar">
-
+      PRB to Excel
     </div>
     <div class="center"> <!-- Contains the svg's, buttons, and output boxes, so the main section -->
 
-      <div class="column" id="dir-col-line"> <!-- Each column is a vertical section in the resulting UI -->
-        <div class="temp-art" id="c1-art"></div>
+      <div class="column" id="dir-col-line" > <!-- Each column is a vertical section in the resulting UI -->
+        <div class="temp-art" id="c1-art" style="--icon: url('./OpenDirectoryIcon.svg');"></div>
         <button class="action-button" onclick="openFileDialog()" id="c1-button-1">Choose PRB Files</button>
         <button class="action-button" onclick="openDirDialog(true)" id="c1-button-2">Choose PRB Files Directory</button>
         <p class="display-title" id="text-input-title"></p>
@@ -20,7 +20,7 @@
       </div>
 
       <div class="column" id="run-col-line">
-        <div class="temp-art" id="c2-art"></div>
+        <div class="temp-art" id="c2-art" style="--icon: url('./TargetDirectoryIcon.svg');"></div>
         <button class="action-button" onclick="openDirDialog()" id="c2-button-1">Target Directory</button>
         <button class="action-button fake">Not Clickable</button>
         <p class="display-title" id="text-destination-title"></p>
@@ -28,7 +28,7 @@
       </div>
 
       <div class="column">
-        <div class="temp-art" id="c3-art"></div>
+        <div class="temp-art" id="c3-art" style="--icon: url('./XLSXFileIcon.svg');"></div>
         <button class="action-button" onclick="generateExcel()" id="c3-button-1">Generate Excel</button>
         <button class="action-button fake">Not Clickable</button>
       </div>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1000" height="1000" viewBox="0 0 1000 1000" xml:space="preserve">
+<desc>Created with Fabric.js 3.5.0</desc>
+<defs>
+</defs>
+<rect x="0" y="0" width="100%" height="100%" fill="rgba(255,255,255,0)"/>
+<g transform="matrix(1.7756 0 0 1.7756 500.0083 500.0057)" id="685492">
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; is-custom-font: none; font-file-url: none; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke" transform=" translate(-256.0001, -173.64)" d="M 121.35 118.09 l 260.64 0 l 0 -31.3 c 0.73 -7.76 -4.67 -9.69 -11.24 -9.98 c -3.77 -0.18 -7.97 -0.2 -11.76 -0.01 l -150.17 0 c -36.03 0 -43.17 -19.04 -49.96 -37.13 c -3.87 -10.32 -7.56 -20.17 -22.65 -20.17 l -104.38 0 c -6.76 0 -12.33 5.57 -12.33 12.33 l 0 253.04 l 61.44 -139.95 c 6.5 -14.82 24.13 -26.83 40.41 -26.83 z m 280.14 0 l 86.05 0 c 19.11 0 29.72 16.28 21.83 34.29 l 0.03 0.01 l -73.77 168.06 c -6.5 14.83 -24.14 26.83 -40.41 26.83 l -366.19 0 c -7.65 0 -13.84 -2.56 -18.08 -6.74 c -6.2 -5.19 -10.95 -17.13 -10.95 -25.05 l 0 -283.66 c 0 -17.52 14.31 -31.83 31.83 -31.83 l 104.38 0 c 28.52 0 34.55 16.06 40.86 32.89 c 4.46 11.89 9.15 24.4 31.75 24.4 c 51.2 0 102.48 0.33 153.67 0.02 c 3.05 -0.03 6.18 -0.06 9.1 0.07 c 16.41 0.76 30.82 5.4 29.88 29.41 l 0.02 31.3 z m 85.97 19.05 l -366.19 0 c -8.66 0 -19 7.42 -22.44 15.25 l -73.77 168.06 l -0.03 -0.01 c -2.05 4.68 -1.46 7.8 4.07 7.8 l 366.2 0 c 8.66 0 18.99 -7.43 22.43 -15.26 l 73.77 -168.06 c 0.07 0.03 4.09 -7.78 -4.04 -7.78 z" stroke-linecap="round"/>
+</g>
+<g transform="matrix(0 0.9799 -0.9799 0 499.9941 208.6809)" id="570818">
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; is-custom-font: none; font-file-url: none; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke" transform=" translate(-256, -256)" d="M 322.7 128.4 L 423 233.4 c 6 5.8 9 13.7 9 22.4 c 0 8.7 -3 16.5 -9 22.4 L 322.7 383.6 c -11.9 12.5 -31.3 12.5 -43.2 0 c -11.9 -12.5 -11.9 -32.7 0 -45.2 l 48.2 -50.4 h -217 C 93.7 288 80 273.7 80 256 c 0 -17.7 13.7 -32 30.6 -32 h 217 l -48.2 -50.4 c -11.9 -12.5 -11.9 -32.7 0 -45.2 C 291.4 115.9 310.7 115.9 322.7 128.4 z" stroke-linecap="round"/>
+</g>
+</svg>

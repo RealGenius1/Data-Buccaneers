@@ -26,10 +26,14 @@ html, body {
 }
 
 .top-bar {
-  width: 100%;
-  height: 30px;
-  margin: 0;
-  padding: 0;
+  background-color: #262626;
+  padding: 20px 24px;
+  border-bottom: 2px solid var(--bg-secondary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--bg-secondary);
+  letter-spacing: 0.5px;
+  font-family: "JetBrains Mono", monospace;
 
   position: relative;
 }
@@ -86,12 +90,13 @@ html, body {
   font-size: 14px;
   justify-content: center;
   padding: 0 16px;
-  transition: box-shadow .15s, transform .15s;
   user-select: none;
   pointer-events: none; /*this is fixed from colored class when applied by applyColoredClass function*/
   transition: 
     background-color 1s ease,
-    box-shadow 1s ease;
+    box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
 }
 .action-button:hover {
   box-shadow:
@@ -110,6 +115,34 @@ html, body {
     var(--button-shadow-dark) 0 2px 4px,
     var(--button-shadow-dark) 0 7px 13px -3px,
     var(--button-shadow-light) 0 -3px 0 inset;
+}
+.action-button::after {
+  content: "";
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+.action-button:hover {
+  box-shadow: 0 0 18px var(--button-color-hover);
+}
+.action-button:hover::after {
+  animation: shine 0.7s ease forwards;
+  opacity: 1;
+}
+/* for some reason animations reverse on mouse exit.
+   this prevents that from happening */
+.action-button:not(:hover)::after {
+  animation: none;
 }
 
 .display-title {
@@ -164,14 +197,36 @@ html, body {
   background-color: var(--button-color);
   pointer-events: auto;
 }
-.temp-art { /*TODO: Transition to svg art instead of a box div*/
-  width: 50px;
-  height: 50px;
-  background-color: grey;
-  margin-bottom: 20px;
-  transition: background-color 1s ease;
+
+.temp-art {
+  width: 80px;
+  height: 80px;
+
+  background-color: var(--connecting-bar-starting-color);
+  
+  -webkit-mask-image: var(--icon);
+  mask-image: var(--icon);
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  transition: background-color 0.3s ease;
 }
+
 .fake {
-  color: red;
+  color: rgb(0, 17, 255);
   visibility: hidden;
+}
+
+/*-------- ANIMATIONS --------*/
+
+@keyframes shine {
+  0%   { left: -150%; }
+  100% { left: 150%; }
 }
