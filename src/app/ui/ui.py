@@ -69,6 +69,6 @@ if __name__ == "__main__":
         url="./index.html",
         js_api=api,
         background_color="#fdf4e6",
-        resizable=False
+        resizable=True,
     )
     webview.start()

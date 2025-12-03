@@ -6,7 +6,9 @@
   --button-color: #f8d8a8;
   --button-text: #000000;
   --button-shadow-light: #f8b878;
+  --button-help-hover: #ce9e6d;
   --button-shadow-dark: rgba(45, 35, 66, 0.4);
+  --top-bar-color: #262626;
 
   --no-interact-bg: lightgrey;
   --no-interact-shadow: darkgrey;
@@ -30,7 +32,7 @@ html, body {
 }
 
 .top-bar {
-  background-color: #262626;
+  background-color: var(--top-bar-color);
   padding: 20px 24px;
   border-bottom: 2px solid var(--bg-secondary);
   font-size: 1.5rem;
@@ -39,6 +41,28 @@ html, body {
   letter-spacing: 0.5px;
 
   position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.round-button {
+  display: block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  color: var(--top-bar-color);
+  text-align: center;
+  text-decoration: none;
+  background: var(--button-shadow-light);
+  font-size: 20px;
+  font-weight: bold;
+  margin-right : 10px;
+}
+.round-button:hover {
+    background: var(--button-help-hover);
 }
 
 .center {
