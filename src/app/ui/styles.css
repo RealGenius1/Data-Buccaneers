@@ -1,5 +1,6 @@
 :root {
   --bg-primary: #fdf4e6;
+  --bg-primary-translucent: rgba(253, 244, 230, 0.5);
   --bg-secondary: #f8d8a8;
 
   --button-color: #f8d8a8;
@@ -193,7 +194,7 @@ html, body {
   margin: 0;
 
   &:nth-child(2n) {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-primary-translucent);
     filter: brightness(90%);
   }
   &:hover {font-weight: bold;}

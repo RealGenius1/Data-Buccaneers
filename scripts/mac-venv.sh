@@ -13,8 +13,8 @@ main() {
     if [[ ! -d "$venv_path" ]]; then
         python3 -m venv .venv
         source ./.venv/bin/activate
-        if [[ -e ./requirements.txt ]]; then
-            pip3 install -r requirements.txt
+        if [[ -e ./TEXTrequirements.txt ]]; then
+            pip3 install -r TEXTrequirements.txt
         fi
     else #venv exists, source it
         printf 'venv exists, source .venv/bin/activate'
