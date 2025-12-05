@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 import numpy as np
 
-def generate_from_root(file):
+def generate_from_root(file: str) -> bool:
 
     path = Path(file)
     try:
@@ -78,11 +78,15 @@ def generate_from_root(file):
                 dir = x / "data.xlsx"
                 df.to_excel(dir)
 
+        # Indicate the program ran successfully 
+        return True
+
     # In case of a bad path, don't crash the code, but give an error message
     except FileNotFoundError:
         print("The given path was invalid")
+        return False
         
-def generate_from_group(file):
+def generate_from_group(file: str) -> bool:
 
     path = Path(file)
     try:
@@ -153,6 +157,12 @@ def generate_from_group(file):
             dir = path / "data.xlsx"
             df.to_excel(dir)
 
+        # Indicate that the program functioned
+        return True
+
     # In case of a bad path, don't crash the code, but give an error message
     except FileNotFoundError:
         print("The given path was invalid")
+
+        # Indicate it broke
+        return False
