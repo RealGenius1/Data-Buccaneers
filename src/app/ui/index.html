@@ -8,7 +8,9 @@
   <body>
     <div class="top-bar">
       PRB to Excel
-      <a href="https://github.com/RealGenius1/Data-Buccaneers/wiki" class="round-button">?</a>
+      <button class="round-button" onclick="pywebview.api.openGithubWiki()">
+        ?
+      </button>
     </div>
     <div class="center"> <!-- Contains the svg's, buttons, and output boxes, so the main section -->
 
@@ -185,6 +187,10 @@
       let arr = [];
       Object.keys(file_obj).forEach((key) => { message.push(file_obj[key]) });
       return arr;
+    }
+
+    function openGithubWiki() {
+      pywebview.api.openGithubWiki();
     }
     </script>
   </body>

@@ -6,7 +6,6 @@
   --button-color: #f8d8a8;
   --button-text: #000000;
   --button-shadow-light: #f8b878;
-  --button-help-hover: #ce9e6d;
   --button-shadow-dark: rgba(45, 35, 66, 0.4);
   --top-bar-color: #262626;
 
@@ -34,7 +33,6 @@ html, body {
 .top-bar {
   background-color: var(--top-bar-color);
   padding: 20px 24px;
-  border-bottom: 2px solid var(--bg-secondary);
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--bg-secondary);
@@ -55,14 +53,14 @@ html, body {
   border-radius: 50%;
   color: var(--top-bar-color);
   text-align: center;
-  text-decoration: none;
-  background: var(--button-shadow-light);
+  background: var(--button-color);
   font-size: 20px;
   font-weight: bold;
   margin-right : 10px;
+  border: none;
 }
 .round-button:hover {
-    background: var(--button-help-hover);
+    background: var(--button-shadow-light);
 }
 
 .center {
