@@ -1,6 +1,6 @@
 import pathlib
 import webview
-from main import generate
+from main import generate_from_root, generate_from_group
 
 class API:
     """This is the communication bridge between js and python, it groups the functions
@@ -21,7 +21,7 @@ class API:
             webview.FileDialog.FOLDER,
         )
         print(filepaths) #REMOVE
-        if (filepaths != None): self.files = filepaths
+        if (filepaths != None): self.files = filepaths[0]
         return self.files
 
     def open_root_dialog(self, get_files_from_dir=False):
@@ -29,13 +29,8 @@ class API:
             webview.FileDialog.FOLDER,
         )
         print("directory choosen:", dir_path) #REMOVE
-        if (dir_path != None and not get_files_from_dir):
-            self.dir_path = dir_path[0]
-            return self.dir_path
-        if (dir_path != None and get_files_from_dir): 
-            self.files = self.get_prb_groups_from_dir(dir_path[0])
-            return self.files
-        print("Current PRB files (self.files):", self.files) #REMOVE
+        if (dir_path != None): self.files = dir_path[0]
+        return self.files
 
     def get_prb_groups_from_dir(self, dir_path: str):
         #TODO - correct pathing to get groups for list
@@ -44,13 +39,15 @@ class API:
         all_pdf_files = tuple(["Group1", "Group2", "Group3"])
         return all_pdf_files
 
-    def generate_excel_file(self):
+    def generate_excel_file(self, rootFolder: bool):
         print("generate")
 
-        # print(self.dir_path)
+        print(f"self.files: typeof-{type(self.files)}, str(val)-{str(self.files)}")
 
-
-        #generate(self.files, self.dir_path) #TODO: Cleanup this generation function with path objects
+        if (rootFolder):
+            generate_from_root(self.files)
+        else:
+            generate_from_group(self.files)
 
         print("done")
 

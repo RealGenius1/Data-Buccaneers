@@ -80,7 +80,7 @@ def generate_from_root(file):
     except FileNotFoundError:
         print("The given path was invalid")
         
-def generate_from_root(file):
+def generate_from_group(file):
 
     path = Path(file)
     try:

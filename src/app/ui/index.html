@@ -60,6 +60,9 @@
       document.getElementById("run-col-line")
     ];
 
+    //boolean for use in generateExcel where we'll decide if root or group folder generation
+    let rootFolder = false;
+
     //activate the first column to allow usage (everything's grey/disabled to
     //start, then we call this function to make colored and interactable)
     applyColoredClass(c1);
@@ -102,13 +105,14 @@
         //after first column success, color next section to show order to user
         //applyColoredClass(c2);
         applyColoredClass(c3);
+        rootFolder = true;
       } else {
         await pywebview.api.print(typeof dir_path);
       }
     }
 
     async function generateExcel() {
-      const result = await pywebview.api.generate_excel_file();
+      const result = await pywebview.api.generate_excel_file(rootFolder);
       await pywebview.api.print(typeof result);
       if (result) {
         await pywebview.api.print("true");
