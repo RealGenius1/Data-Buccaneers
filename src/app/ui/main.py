@@ -52,7 +52,7 @@ def generate_from_root(file):
                         # Fill the numerical fields
                         if(columns_num.__contains__(field_name)) :
                             try:
-                                data_num[field_name] = int(field_value.value)
+                                data_num[field_name] = float(field_value.value)
                             except ValueError:
                                 data_num[field_name] = 0
                         
