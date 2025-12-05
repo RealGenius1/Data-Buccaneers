@@ -1,4 +1,5 @@
 import pathlib
+import webbrowser
 import webview
 from main import generate_from_root, generate_from_group
 
@@ -58,6 +59,10 @@ class API:
 
     def print(self, val, identifier="JS"):
         print(f"Value from {identifier}:{val}")
+
+    # Open the github wiki in the default browser
+    def openGithubWiki(self):
+        webbrowser.open_new("https://github.com/RealGenius1/Data-Buccaneers/wiki")
 
 if __name__ == "__main__":
     api = API()
