@@ -14,15 +14,15 @@
 
       <div class="column" id="dir-col-line" > <!-- Each column is a vertical section in the resulting UI -->
         <div class="temp-art" id="c1-art" style="--icon: url('./OpenDirectoryIcon.svg');"></div>
-        <button class="action-button" onclick="openFileDialog()" id="c1-button-1">Choose PRB Files</button>
-        <button class="action-button" onclick="openDirDialog(true)" id="c1-button-2">Choose PRB Files Directory</button>
+        <button class="action-button" onclick="openGroupDialog()" id="c1-button-1">Choose Individual PRB Group Folder</button>
+        <button class="action-button" onclick="openRootDialog(true)" id="c1-button-2">Choose PRB Folder Containing Group Folders</button>
         <p class="display-title" id="text-input-title"></p>
         <div class="display-text-area" id="text-input-rows"></div>
       </div>
 
       <div class="column" id="run-col-line">
         <div class="temp-art" id="c2-art" style="--icon: url('./TargetDirectoryIcon.svg');"></div>
-        <button class="action-button" onclick="openDirDialog()" id="c2-button-1">Target Directory</button>
+        <button class="action-button" onclick="openRootDialog()" id="c2-button-1">Target Directory</button>
         <button class="action-button fake">Not Clickable</button>
         <p class="display-title" id="text-destination-title"></p>
         <div class="display-text-area" id="text-destination-rows"></div>
@@ -64,9 +64,9 @@
     //start, then we call this function to make colored and interactable)
     applyColoredClass(c1);
 
-    async function openFileDialog() {
+    async function openGroupDialog() {
       // call Python method exposed as js_api
-      const result = await pywebview.api.open_file_dialog();
+      const result = await pywebview.api.open_group_dialog();
       await pywebview.api.print(result);
       if (result[0]) {
         document.getElementById("text-input-title").innerHTML = "Choosen PRB Files:";
@@ -76,14 +76,15 @@
         }
 
         //after first column success, color next section to show order to user
-        applyColoredClass(c2);
+        //applyColoredClass(c2);
+        applyColoredClass(c3);
       } else {
         await pywebview.api.print("No files choosen");
       }
     }
 
-    async function openDirDialog(get_files_from_dir=false) {
-      const dir_path = await pywebview.api.open_directory_dialog(get_files_from_dir);
+    async function openRootDialog(get_files_from_dir=false) {
+      const dir_path = await pywebview.api.open_root_dialog(get_files_from_dir);
       if (dir_path && !get_files_from_dir) {
         document.getElementById("text-destination-title").innerHTML = "Destination Directory:";
         clearText("text-destination-rows");
@@ -99,7 +100,8 @@
         }
 
         //after first column success, color next section to show order to user
-        applyColoredClass(c2);
+        //applyColoredClass(c2);
+        applyColoredClass(c3);
       } else {
         await pywebview.api.print(typeof dir_path);
       }
