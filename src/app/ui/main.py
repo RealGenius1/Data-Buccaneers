@@ -37,11 +37,13 @@ def generate_from_root(file):
 
                 # Iterate through each file in the directory
                 for prb in x.iterdir():
+                    if (prb.suffix != ".pdf"): continue
                     # Data storage
                     data_num = dict()
                     data_str = dict()
                     
                     # Read the pdf and get their fillable fields
+                    print(str(prb))
                     pdf = PdfReader(prb)
                     form_data = pdf.get_fields()
 
@@ -110,7 +112,8 @@ def generate_from_group(file):
             df_str = pd.DataFrame(columns=columns_str)
 
             # Iterate through each file in the directory
-            for prb in x.iterdir():
+            for prb in path.iterdir():
+                if (prb.suffix != ".pdf"): continue
                 # Data storage
                 data_num = dict()
                 data_str = dict()
