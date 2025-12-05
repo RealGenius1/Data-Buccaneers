@@ -1,3 +1,4 @@
+import pathlib
 import webbrowser
 import webview
 from main import generate_from_root, generate_from_group
@@ -28,16 +29,10 @@ class API:
         dir_path = webview.windows[0].create_file_dialog(
             webview.FileDialog.FOLDER,
         )
-        print("directory choosen:", dir_path) #REMOVE
-        if (dir_path != None): self.files = dir_path[0]
-        return self.files
-
-    def get_prb_groups_from_dir(self, dir_path: str):
-        #TODO - correct pathing to get groups for list
-        #dir = pathlib.Path(dir_path)
-        #all_pdf_files = tuple(str(file) for file in dir.iterdir() if (file.is_file() and file.suffix == ".pdf"))
-        all_pdf_files = tuple(["Group1", "Group2", "Group3"])
-        return all_pdf_files
+        if (dir_path != None):
+            self.files = dir_path[0]
+            self.files = [str(x) for x in pathlib.Path(self.files).iterdir() if x.is_dir()]
+        return self.files;
 
     def generate_excel_file(self, rootFolder: bool):
         print("generate")
@@ -45,9 +40,9 @@ class API:
         print(f"self.files: typeof-{type(self.files)}, str(val)-{str(self.files)}")
 
         if (rootFolder):
-            generate_from_root(self.files)
+            generate_from_root(str(self.files))
         else:
-            generate_from_group(self.files)
+            generate_from_group(str(self.files))
 
         print("done")
 

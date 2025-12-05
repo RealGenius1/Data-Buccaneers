@@ -63,37 +63,28 @@
 
     async function openGroupDialog() {
       // call Python method exposed as js_api
-      const result = await pywebview.api.open_group_dialog();
-      await pywebview.api.print(result);
-      if (result[0]) {
-        document.getElementById("text-input-title").innerHTML = "Choosen PRB Files:";
+      const dir_path = await pywebview.api.open_group_dialog();
+      if (dir_path[0]) {
+        document.getElementById("text-input-title").innerHTML = "Choosen PRB Groups:";
         clearText("text-input-rows");
-        for (let res of result) {
-          addRowText("text-input-rows", res);
-        }
+        addRowText("text-input-rows", dir_path);
 
         //after first column success, color next section to show order to user
         //applyColoredClass(c2);
         applyColoredClass(c3);
+        rootFolder = false;
       } else {
-        await pywebview.api.print("No files choosen");
+        await pywebview.api.print(typeof dir_path);
       }
     }
 
     async function openRootDialog(get_files_from_dir=false) {
       const dir_path = await pywebview.api.open_root_dialog(get_files_from_dir);
-      if (dir_path && !get_files_from_dir) {
-        document.getElementById("text-destination-title").innerHTML = "Destination Directory:";
-        clearText("text-destination-rows");
-        addRowText("text-destination-rows", dir_path);
-
-        //after second column success, color next section to show order to user
-        applyColoredClass(c3);
-      } else if (dir_path[0] && get_files_from_dir) {
-        document.getElementById("text-input-title").innerHTML = "Choosen PRB Files:";
+      if (dir_path[0]) {
+        document.getElementById("text-input-title").innerHTML = "Choosen PRB Groups:";
         clearText("text-input-rows");
-        for (let res of dir_path) {
-          addRowText("text-input-rows", res);
+        for (const dir of dir_path.sort()){
+          addRowText("text-input-rows", dir);
         }
 
         //after first column success, color next section to show order to user
