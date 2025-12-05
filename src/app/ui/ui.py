@@ -1,4 +1,3 @@
-import pathlib
 import webbrowser
 import webview
 from main import generate_from_root, generate_from_group
@@ -71,6 +70,6 @@ if __name__ == "__main__":
         url="./index.html",
         js_api=api,
         background_color="#fdf4e6",
-        resizable=True,
+        resizable=False,
     )
     webview.start()

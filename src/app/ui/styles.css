@@ -90,7 +90,7 @@ html, body {
   background-color: var(--line-color);
   transition: background-color 1s ease;
 }
-.column:nth-child(-n+2)::after {
+.column:nth-child(-n+1)::after {
   content:'';
   position: absolute;
   top: 15%;

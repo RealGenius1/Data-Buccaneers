@@ -22,14 +22,6 @@
         <div class="display-text-area" id="text-input-rows"></div>
       </div>
 
-      <div class="column" id="run-col-line">
-        <div class="temp-art" id="c2-art" style="--icon: url('./TargetDirectoryIcon.svg');"></div>
-        <button class="action-button" onclick="openRootDialog()" id="c2-button-1">Target Directory</button>
-        <button class="action-button fake">Not Clickable</button>
-        <p class="display-title" id="text-destination-title"></p>
-        <div class="display-text-area" id="text-destination-rows"></div>
-      </div>
-
       <div class="column">
         <div class="temp-art" id="c3-art" style="--icon: url('./XLSXFileIcon.svg');"></div>
         <button class="action-button" onclick="generateExcel()" id="c3-button-1">Generate Excel</button>
@@ -159,12 +151,12 @@
             e.style.setProperty("--no-interact-bg", "rgba(45, 35, 66, 0.4)");
             e.style.setProperty("--no-interact-shadow", "#f8b878");
             break;
-          case "DIV": //TODO: svg fill change, leave div as the text input
+          case "DIV":
             if (!classListContains(e, ["display-title", "temp-art", "column"])) { //replace this if with just the div change later
               e.style.boxShadow = "var(--button-shadow-light) 0 3px 7px inset";
             } else if (e.classList.contains("column")) {
               e.style.setProperty("--line-color", "#222222");
-            } else { //TODO: replace this with a switch for an svg later
+            } else {
               e.style.backgroundColor = "#000000";
             }
             break;
