@@ -29,10 +29,11 @@ class API:
         dir_path = webview.windows[0].create_file_dialog(
             webview.FileDialog.FOLDER,
         )
+        return_res = list()
         if (dir_path != None):
             self.files = dir_path[0]
-            self.files = [str(x) for x in pathlib.Path(self.files).iterdir() if x.is_dir()]
-        return self.files;
+            return_res = [str(x) for x in pathlib.Path(self.files).iterdir() if x.is_dir()]
+        return return_res;
 
     def generate_excel_file(self, rootFolder: bool):
         print("generate")
