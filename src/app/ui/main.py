@@ -7,6 +7,8 @@ def generate_from_root(file: str) -> bool:
 
     path = Path(file)
     try:
+
+
         # Iterate through each path in the given path
         for x in path.iterdir():
 
@@ -32,8 +34,10 @@ def generate_from_root(file: str) -> bool:
                     "advisor", 
                     "comments"
                 ]
-                df_num = pd.DataFrame(columns=columns_num)
                 df_str = pd.DataFrame(columns=columns_str)
+                col_num = []
+                nums = []
+                evals = []
 
                 # Iterate through each file in the directory
                 for prb in x.iterdir():
@@ -48,26 +52,29 @@ def generate_from_root(file: str) -> bool:
                     form_data = pdf.get_fields()
 
                     # Iterate through the fields to extract values
-                    for field_name, field_value in form_data.items():
-                        # Fill the numerical fields
-                        if(columns_num.__contains__(field_name)) :
-                            try:
-                                data_num[field_name] = float(field_value.value)
-                            except ValueError:
-                                data_num[field_name] = 0
-                        
+                    for field_name, field_value in form_data.items():                        
                         # Fill the string fields
                         if(columns_str.__contains__(field_name)):
                             data_str[field_name] = field_value.value
 
                         # Get evaluator
-                        if(field_name.__eq__('evaluator')):
+                        elif(field_name.__eq__('evaluator')):
                             eval = field_value.value
+                            evals.append(eval)
+
+                        # Fill the numerical fields
+                        else:
+                            try:
+                                data_num[field_name] = float(field_value.value)
+                            except ValueError:
+                                data_num[field_name] = 0
+                            col_num.append(field_name)
                     
                     # Fill the DataFrames with the data
-                    df_num.loc[eval,:] = data_num
+                    nums.append(data_num)
                     df_str.loc[eval,:] = data_str
 
+                df_num = pd.DataFrame(nums, index=evals)
                 # Create the average score from each evaluator
                 df_num.loc["average", :] = df_num.mean()
 
@@ -112,7 +119,9 @@ def generate_from_group(file: str) -> bool:
                 "advisor", 
                 "comments"
             ]
-            df_num = pd.DataFrame(columns=columns_num)
+            col_num = []
+            nums = []
+            evals = []
             df_str = pd.DataFrame(columns=columns_str)
 
             # Iterate through each file in the directory
@@ -128,37 +137,41 @@ def generate_from_group(file: str) -> bool:
 
                 # Iterate through the fields to extract values
                 for field_name, field_value in form_data.items():
-                    # Fill the numerical fields
-                    if(columns_num.__contains__(field_name)) :
-                        try:
-                            data_num[field_name] = float(field_value.value)
-                        except ValueError:
-                            data_num[field_name] = 0
-                    
                     # Fill the string fields
                     if(columns_str.__contains__(field_name)):
                         data_str[field_name] = field_value.value
 
                     # Get evaluator
-                    if(field_name.__eq__('evaluator')):
+                    elif(field_name.__eq__('evaluator')):
                         eval = field_value.value
-                
-                # Fill the DataFrames with the data
-                df_num.loc[eval,:] = data_num
-                df_str.loc[eval,:] = data_str
+                        evals.append(eval)
 
-            # Create the average score from each evaluator
-            df_num.loc["average", :] = df_num.mean()
+                    # Fill the numerical fields
+                    else:
+                        try:
+                            data_num[field_name] = float(field_value.value)
+                        except ValueError:
+                            data_num[field_name] = 0
+                        col_num.append(field_name)
+                    
+                    # Fill the DataFrames with the data
+                    nums.append(data_num)
+                    df_str.loc[eval,:] = data_str
 
-            # Merge the DataFrames into one final DataFrame
-            df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
+                df_num = pd.DataFrame(nums, index=evals)
+                # Create the average score from each evaluator
+                df_num.loc["average", :] = df_num.mean()
 
-            # Create a file path for the excel file, and then convert the DataFrame into the excel file
-            dir = path / "data.xlsx"
-            df.to_excel(dir)
+                # Merge the DataFrames into one final DataFrame
+                df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
 
-        # Indicate that the program functioned
+                # Create a file path for the excel file, and then convert the DataFrame into the excel file
+                dir = x / "data.xlsx"
+                df.to_excel(dir)
+
+        # Indicate the program ran successfully 
         return True
+
 
     # In case of a bad path, don't crash the code, but give an error message
     except FileNotFoundError:
