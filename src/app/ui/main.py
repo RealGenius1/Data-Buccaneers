@@ -15,26 +15,17 @@ def generate_from_root(file: str) -> bool:
             # If the given file is a directory, we can iterate through files
             if x.is_dir():
 
-                # Set up the pandas DataFrames
-                columns_num=[
-                    "project_motivation", 
-                    "constraints", 
-                    "evaluation_metrics", 
-                    "state_of_the_art", 
-                    "design_concepts", 
-                    "concept_selection", 
-                    "budget", 
-                    "schedule", 
-                    "citations", 
-                    "questions", 
-                    "effective",
-                ]        
+                # Set up the string fields
                 columns_str = [
                     "Capstone_Group",
                     "advisor", 
                     "comments"
                 ]
+
+                # Set up the string dataframe
                 df_str = pd.DataFrame(columns=columns_str)
+                
+                # Set up work for the number dataframe to fill columns dynamically
                 col_num = []
                 nums = []
                 evals = []
@@ -66,8 +57,11 @@ def generate_from_root(file: str) -> bool:
                         else:
                             try:
                                 data_num[field_name] = float(field_value.value)
+
+                            # If the value is N/A or just invalid, make it a NaN
+                            # This allows it to exist but df.mean() will ignore
                             except ValueError:
-                                data_num[field_name] = 0
+                                data_num[field_name] = np.nan
                             col_num.append(field_name)
                     
                     # Fill the DataFrames with the data
@@ -100,29 +94,20 @@ def generate_from_group(file: str) -> bool:
         # If the given file is a directory, we can iterate through files
         if path.is_dir():
 
-            # Set up the pandas DataFrames
-            columns_num=[
-                "project_motivation", 
-                "constraints", 
-                "evaluation_metrics", 
-                "state_of_the_art", 
-                "design_concepts", 
-                "concept_selection", 
-                "budget", 
-                "schedule", 
-                "citations", 
-                "questions", 
-                "effective",
-            ]        
+            # Set up the string fields
             columns_str = [
                 "Capstone_Group",
                 "advisor", 
                 "comments"
             ]
+
+            # Set up the string dataframe
+            df_str = pd.DataFrame(columns=columns_str)
+
+            # Set up work for the number dataframe to fill columns dynamically
             col_num = []
             nums = []
             evals = []
-            df_str = pd.DataFrame(columns=columns_str)
 
             # Iterate through each file in the directory
             for prb in path.iterdir():
@@ -150,8 +135,11 @@ def generate_from_group(file: str) -> bool:
                     else:
                         try:
                             data_num[field_name] = float(field_value.value)
+
+                        # If the value is N/A or just invalid, make it a NaN
+                        # This allows it to exist but df.mean() will ignore
                         except ValueError:
-                            data_num[field_name] = 0
+                            data_num[field_name] = np.nan
                         col_num.append(field_name)
                     
                     # Fill the DataFrames with the data
@@ -166,7 +154,7 @@ def generate_from_group(file: str) -> bool:
                 df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
 
                 # Create a file path for the excel file, and then convert the DataFrame into the excel file
-                dir = x / "data.xlsx"
+                dir = path / "data.xlsx"
                 df.to_excel(dir)
 
         # Indicate the program ran successfully 
