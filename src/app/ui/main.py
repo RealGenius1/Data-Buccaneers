@@ -146,16 +146,16 @@ def generate_from_group(file: str) -> bool:
                 nums.append(data_num)
                 df_str.loc[eval,:] = data_str
 
-                df_num = pd.DataFrame(nums, index=evals)
-                # Create the average score from each evaluator
-                df_num.loc["average", :] = df_num.mean()
+            df_num = pd.DataFrame(nums, index=evals)
+            # Create the average score from each evaluator
+            df_num.loc["average", :] = df_num.mean()
 
-                # Merge the DataFrames into one final DataFrame
-                df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
+            # Merge the DataFrames into one final DataFrame
+            df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
 
-                # Create a file path for the excel file, and then convert the DataFrame into the excel file
-                dir = path / "data.xlsx"
-                df.to_excel(dir)
+            # Create a file path for the excel file, and then convert the DataFrame into the excel file
+            dir = path / "data.xlsx"
+            df.to_excel(dir)
 
         # Indicate the program ran successfully 
         return True
