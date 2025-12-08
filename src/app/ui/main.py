@@ -142,9 +142,9 @@ def generate_from_group(file: str) -> bool:
                             data_num[field_name] = np.nan
                         col_num.append(field_name)
                     
-                    # Fill the DataFrames with the data
-                    nums.append(data_num)
-                    df_str.loc[eval,:] = data_str
+                # Fill the DataFrames with the data
+                nums.append(data_num)
+                df_str.loc[eval,:] = data_str
 
                 df_num = pd.DataFrame(nums, index=evals)
                 # Create the average score from each evaluator
