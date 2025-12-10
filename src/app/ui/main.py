@@ -62,6 +62,8 @@ def generate_from_root(file: str) -> bool:
                             # This allows it to exist but df.mean() will ignore
                             except ValueError:
                                 data_num[field_name] = np.nan
+                            except TypeError:
+                                data_num[field_name] = np.nan
                             col_num.append(field_name)
                     
                     # Fill the DataFrames with the data
@@ -139,6 +141,8 @@ def generate_from_group(file: str) -> bool:
                         # If the value is N/A or just invalid, make it a NaN
                         # This allows it to exist but df.mean() will ignore
                         except ValueError:
+                            data_num[field_name] = np.nan
+                        except TypeError:
                             data_num[field_name] = np.nan
                         col_num.append(field_name)
                     
