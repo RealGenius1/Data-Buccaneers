@@ -81,6 +81,7 @@ def generate_from_root(file: str) -> bool:
                 dir = x / "data.xlsx"
                 df.to_excel(dir)
 
+
         # Indicate the program ran successfully 
         return True
 
@@ -159,8 +160,7 @@ def generate_from_group(file: str) -> bool:
 
             # Create a file path for the excel file, and then convert the DataFrame into the excel file
             dir = path / "data.xlsx"
-            with pd.ExcelWriter(path, mode='a'):
-                df.to_excel(dir)
+            df.to_excel(dir)
 
         # Indicate the program ran successfully 
         return True
