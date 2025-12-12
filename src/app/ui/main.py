@@ -29,6 +29,7 @@ def generate_from_root(file: str) -> bool:
                 col_num = []
                 nums = []
                 evals = []
+                group = ""
 
                 # Iterate through each file in the directory
                 for prb in x.iterdir():
@@ -47,7 +48,8 @@ def generate_from_root(file: str) -> bool:
                         # Fill the string fields
                         if(columns_str.__contains__(field_name)):
                             data_str[field_name] = field_value.value
-
+                            if(field_name.__eq__('Capstone_Group')):
+                                group = field_value.value
                         # Get evaluator
                         elif(field_name.__eq__('evaluator')):
                             eval = field_value.value
@@ -78,7 +80,8 @@ def generate_from_root(file: str) -> bool:
                 df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
 
                 # Create a file path for the excel file, and then convert the DataFrame into the excel file
-                dir = x / "data.xlsx"
+                x = group + ".xlsx"
+                dir = path / x
                 df.to_excel(dir)
 
 
@@ -111,6 +114,7 @@ def generate_from_group(file: str) -> bool:
             col_num = []
             nums = []
             evals = []
+            group = ""
 
             # Iterate through each file in the directory
             for prb in path.iterdir():
@@ -128,6 +132,8 @@ def generate_from_group(file: str) -> bool:
                     # Fill the string fields
                     if(columns_str.__contains__(field_name)):
                         data_str[field_name] = field_value.value
+                        if(field_name.__eq__('Capstone_Group')):
+                            group = field_value.value
 
                     # Get evaluator
                     elif(field_name.__eq__('evaluator')):
@@ -159,7 +165,8 @@ def generate_from_group(file: str) -> bool:
             df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
 
             # Create a file path for the excel file, and then convert the DataFrame into the excel file
-            dir = path / "data.xlsx"
+            x = group + ".xlsx"
+            dir = path / x
             df.to_excel(dir)
 
         # Indicate the program ran successfully 
