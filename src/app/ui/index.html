@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>PyWebview Demo</title>
@@ -28,6 +27,9 @@
         <button class="action-button fake">Not Clickable</button>
       </div>
 
+      <div id="message-box">
+      </div>
+
     </div>
 
     <script>
@@ -53,6 +55,8 @@
       document.getElementById("c3-button-1"),
       document.getElementById("run-col-line")
     ];
+
+    const messagebox = document.getElementById("message-box");
 
     //boolean for use in generateExcel where we'll decide if root or group folder generation
     let rootFolder = false;
@@ -98,11 +102,14 @@
 
     async function generateExcel() {
       const result = await pywebview.api.generate_excel_file(rootFolder);
-      await pywebview.api.print(typeof result);
       if (result) {
         await pywebview.api.print("true");
+        messagebox.style.bottom = "47px";
+        messagebox.classList.add("success");
       } else {
         await pywebview.api.print("false");
+        messagebox.style.bottom = "47px";
+        messagebox.classList.add("failure");
       }
     }
 
