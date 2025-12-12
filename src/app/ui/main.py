@@ -80,8 +80,8 @@ def generate_from_root(file: str) -> bool:
                 df = df_num.merge(right=df_str, how='left', left_index=True, right_index=True).fillna("N/A")
 
                 # Create a file path for the excel file, and then convert the DataFrame into the excel file
-                x = group + ".xlsx"
-                dir = path / x
+                z = group + ".xlsx"
+                dir = x / z
                 df.to_excel(dir)
 
 
