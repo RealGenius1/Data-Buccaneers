@@ -35,10 +35,17 @@ class API:
         return return_res;
 
     def generate_excel_file(self, rootFolder: bool):
-        if (rootFolder):
-            generate_from_root(str(self.files))
-        else:
-            generate_from_group(str(self.files))
+        try:
+            if (rootFolder):
+                generate_from_root(str(self.files))
+            else:
+                generate_from_group(str(self.files))
+        #If error info is needed, like you're stuck looking for what's going wrong,
+        #get rid of this try catch section to see the errors directly. I did this
+        #so the fronted has error info.
+        except Exception as e:
+            #print(e)
+            return False
 
         #TODO implement call with files tuple and dir_path
         if (len(self.files) <= 0 and len(self.dir_path) <= 0):
