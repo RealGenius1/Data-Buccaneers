@@ -225,22 +225,58 @@ html, body {
 .temp-art {
   width: 80px;
   height: 80px;
-
   background-color: var(--no-interact-bg);
-  
   -webkit-mask-image: var(--icon);
   mask-image: var(--icon);
-
   -webkit-mask-size: contain;
   mask-size: contain;
-
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-
   -webkit-mask-position: center;
   mask-position: center;
-
   transition: background-color 1s ease;
+}
+
+#message-box {
+  position: absolute;
+  bottom: -130px;
+  right: 55px;
+  width: 37%;
+  height: 100px;
+  background-color: var(--bg-secondary);
+  border-width: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  color: black;
+  cursor: pointer;
+  box-shadow:
+    var(--button-shadow-dark) 0 2px 4px,
+    var(--button-shadow-dark) 0 7px 13px -3px,
+    var(--button-shadow-dark) 0 -3px 0 inset;
+  transition:
+    bottom 1s linear( /*linear transition from https://stackoverflow.com/questions/29786230/how-to-create-css-bounce-effect#:~:text=linear(%0A%20%20%20%200%2C%200.004%2C%200.016%2C%200.035%2C%200.063%2C%200.098%2C%200.141%2013.6%25%2C%200.25%2C%200.391%2C%200.563%2C%200.765%2C%0A%20%20%20%201%2C%200.891%2040.9%25%2C%200.848%2C%200.813%2C%200.785%2C%200.766%2C%200.754%2C%200.75%2C%200.754%2C%200.766%2C%200.785%2C%0A%20%20%20%200.813%2C%200.848%2C%200.891%2068.2%25%2C%201%2072.7%25%2C%200.973%2C%200.953%2C%200.941%2C%200.938%2C%200.941%2C%200.953%2C%0A%20%20%20%200.973%2C%201%2C%200.988%2C%200.984%2C%200.988%2C%201%0A%20%20)%3B*/
+    0, 0.004, 0.016, 0.035, 0.063, 0.098, 0.141 13.6%, 0.25, 0.391, 0.563, 0.765,
+    1, 0.891 40.9%, 0.848, 0.813, 0.785, 0.766, 0.754, 0.75, 0.754, 0.766, 0.785,
+    0.813, 0.848, 0.891 68.2%, 1 72.7%, 0.973, 0.953, 0.941, 0.938, 0.941, 0.953,
+    0.973, 1, 0.988, 0.984, 0.988, 1),
+    opacity 1s ease;
+  & #message-title {
+    position: absolute;
+    top: -3px;
+    left: 80px;
+  }
+  & #message-description {
+    position: absolute;
+    width: 85%;
+    height: fit-content;
+    top: 30px;
+    left: 20px;
+  }
+  & > svg {
+    position: absolute;
+    top: 0;
+    left: 15px;
+  }
 }
 
 .fake {
@@ -251,6 +287,6 @@ html, body {
 /*-------- ANIMATIONS --------*/
 
 @keyframes shine {
-  0%   { left: -150%; }
-  100% { left: 150%; }
+0%   { left: -150%; }
+100% { left: 150%; }
 }

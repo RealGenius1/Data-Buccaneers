@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>PyWebview Demo</title>
@@ -28,6 +27,13 @@
         <button class="action-button fake">Not Clickable</button>
       </div>
 
+      <div id="message-box">
+        <i><p id="message-title"></p></i>
+        <p id="message-description"></p>
+        <svg id="message-failure-icon" width='40px' height='40px' viewBox='0 0 25 25' fill='#d4763f' xmlns='http://www.w3.org/2000/svg'><path d='M12.5 10V14M12.5 17V15.5M14.2483 5.64697L20.8493 17.5287C21.5899 18.8618 20.6259 20.5 19.101 20.5H5.89903C4.37406 20.5 3.41013 18.8618 4.15072 17.5287L10.7517 5.64697C11.5137 4.27535 13.4863 4.27535 14.2483 5.64697Z' stroke='#121923' stroke-width='1.2'/></svg>
+        <svg id="message-success-icon" style='width:40px;height:40px;vertical-align:middle;fill:currentColor;overflow:hidden;' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg'><path d='M866.133333 258.133333L362.666667 761.6l-204.8-204.8L98.133333 618.666667 362.666667 881.066667l563.2-563.2z' fill='#43A047' /></svg>
+      </div>
+
     </div>
 
     <script>
@@ -54,12 +60,21 @@
       document.getElementById("run-col-line")
     ];
 
+    const messagebox = document.getElementById("message-box");
+
     //boolean for use in generateExcel where we'll decide if root or group folder generation
     let rootFolder = false;
 
     //activate the first column to allow usage (everything's grey/disabled to
     //start, then we call this function to make colored and interactable)
     applyColoredClass(c1);
+
+    messagebox.addEventListener("click", (e) => {
+      messagebox.style.opacity = "0";
+      setTimeout(() => {
+        messagebox.style.bottom = "-130px";
+      }, 1000);
+    });
 
     async function openGroupDialog() {
       // call Python method exposed as js_api
@@ -73,8 +88,6 @@
         //applyColoredClass(c2);
         applyColoredClass(c3);
         rootFolder = false;
-      } else {
-        await pywebview.api.print(typeof dir_path);
       }
     }
 
@@ -91,18 +104,25 @@
         //applyColoredClass(c2);
         applyColoredClass(c3);
         rootFolder = true;
-      } else {
-        await pywebview.api.print(typeof dir_path);
       }
     }
 
     async function generateExcel() {
       const result = await pywebview.api.generate_excel_file(rootFolder);
-      await pywebview.api.print(typeof result);
       if (result) {
-        await pywebview.api.print("true");
+        messagebox.style.opacity = "1";
+        document.getElementById("message-success-icon").style.opacity = "1";
+        document.getElementById("message-failure-icon").style.opacity = "0";
+        document.getElementById("message-title").textContent = "Success";
+        document.getElementById("message-description").textContent = "No errors occurred while combining the PRB documents to an excel file.";
+        messagebox.style.bottom = "47px";
       } else {
-        await pywebview.api.print("false");
+        messagebox.style.opacity = "1";
+        document.getElementById("message-success-icon").style.opacity = "0";
+        document.getElementById("message-failure-icon").style.opacity = "1";
+        document.getElementById("message-title").textContent = "Failure";
+        document.getElementById("message-description").textContent = "An error's occurred during the PRB data collection process.";
+        messagebox.style.bottom = "47px";
       }
     }
 
