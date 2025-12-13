@@ -21,7 +21,6 @@ class API:
         filepaths = webview.windows[0].create_file_dialog(
             webview.FileDialog.FOLDER,
         )
-        print(filepaths) #REMOVE
         if (filepaths != None): self.files = filepaths[0]
         return self.files
 
@@ -36,16 +35,10 @@ class API:
         return return_res;
 
     def generate_excel_file(self, rootFolder: bool):
-        print("generate")
-
-        print(f"self.files: typeof-{type(self.files)}, str(val)-{str(self.files)}")
-
         if (rootFolder):
             generate_from_root(str(self.files))
         else:
             generate_from_group(str(self.files))
-
-        print("done")
 
         #TODO implement call with files tuple and dir_path
         if (len(self.files) <= 0 and len(self.dir_path) <= 0):
