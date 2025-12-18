@@ -39,7 +39,6 @@ def generate_from_root(file: str) -> bool:
                     data_str = dict()
                     
                     # Read the pdf and get their fillable fields
-                    print(str(prb))
                     pdf = PdfReader(prb)
                     form_data = pdf.get_fields()
 
